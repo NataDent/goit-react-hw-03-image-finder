@@ -59,7 +59,7 @@ export class App extends Component {
   };
 
   render() {
-    const { searchQuery, images, page, loading, error, modal } = this.state;
+    const { loading, error } = this.state;
     return (
       <Container>
         <SearchBar onSubmit={this.onSubmit} />
