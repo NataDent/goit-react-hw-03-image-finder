@@ -16,29 +16,10 @@ export class App extends Component {
     modal: false,
   };
 
-  async componentDidMount() {
-    const savedQuery = localStorage.getItem('searchQuery');
-    if (savedQuery !== null) {
-      this.setState({
-        searchQuery: JSON.parse(savedQuery),
-      });
-    }
-
-    try {
-      this.setState({ loading: true, error: false });
-      const images = await getImages();
-      console.log(images);
-    } catch (error) {
-      this.setState({ error: true });
-    } finally {
-      this.setState({ loading: false });
-    }
-  }
-
   componentDidUpdate(_, prevState) {
     const { searchQuery, page } = this.state;
     if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
-      getImages();
+      getImages(searchQuery, page);
     }
   }
 
@@ -56,6 +37,9 @@ export class App extends Component {
     if (!query) {
       toast.warn('Please enter your request');
     }
+    this.setState({
+      searchQuery: query,
+    });
   };
 
   render() {
