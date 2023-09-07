@@ -19,7 +19,10 @@ export class App extends Component {
   componentDidUpdate(_, prevState) {
     const { searchQuery, page } = this.state;
     if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
-      getImages(searchQuery, page);
+      getImages(searchQuery, page).then(data => {
+        console.log(data);
+        this.setState(prev => ({ images: [...prev.images, ...data.hits] }));
+      });
     }
   }
 
