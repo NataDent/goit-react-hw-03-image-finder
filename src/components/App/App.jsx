@@ -26,7 +26,6 @@ export class App extends Component {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
       getImages(query, page).then(data => {
-        console.log(data);
         this.setState(prev => ({ images: [...prev.images, ...data.hits] }));
       });
     }
@@ -36,7 +35,7 @@ export class App extends Component {
     if (!query) return;
     this.setState({ isLoading: true });
     try {
-      const { hits, total, totalHits } = await getImages(query, page);
+      const { hits, totalHits } = await getImages(query, page);
 
       if (hits.length === 0) {
         this.setState({ isEmpty: true });
@@ -44,7 +43,7 @@ export class App extends Component {
       }
       this.setState(prevState => ({
         images: [...prevState.images, ...hits],
-        isVisible: page < Math.ceil(total / totalHits),
+        isVisible: page < Math.ceil(totalHits / 12),
       }));
     } catch (error) {
       this.setState({ error: error.message });
