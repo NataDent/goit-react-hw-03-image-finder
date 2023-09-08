@@ -1,25 +1,65 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
+import { FiSearch } from 'react-icons/fi';
+
 import {
   Header,
-  SearchForm,
-  SearchFormButton,
-  SearchFormInput,
+  SearchFormStyled,
+  SearchFormButtonStyled,
+  SearchFormInputStyled,
 } from './Searchbar.styled';
 
-export const SearchBar = ({ onSubmit, onChange }) => {
-  return (
-    <Header>
-      <SearchForm onSubmit={onSubmit} autoComplete="off">
-        <SearchFormInput
-          type="search"
-          onChange={onChange}
-          value={this.state.searchQuery}
-          name="searchQuery"
-          placeholder="Search images and photos"
-          autoFocus
-        />
-        <SearchFormButton>Search</SearchFormButton>
-      </SearchForm>
-    </Header>
-  );
+export class Searchbar extends Component {
+  state = {
+    query: '',
+  };
+
+  handleInput = e => {
+    const { value } = e.currentTarget;
+    this.setState({ query: value.toLowerCase().trim() });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { query } = this.state;
+
+    if (query === '') {
+      toast.info('Please enter your search term');
+      return;
+    }
+
+    this.onSubmit(query);
+    this.setState({ query: '' });
+  };
+
+  render() {
+    const { query } = this.state;
+    return (
+      <>
+        <Header>
+          <SearchFormStyled onSubmit={this.handleSubmit}>
+            <SearchFormButtonStyled type="submit">
+              <FiSearch size="16px" />
+            </SearchFormButtonStyled>
+
+            <SearchFormInputStyled
+              type="text"
+              autocomplete="off"
+              autoFocus
+              placeholder="Search images and photos"
+              value={query}
+              onChange={this.handleInput}
+            />
+          </SearchFormStyled>
+        </Header>
+      </>
+    );
+  }
+}
+
+Searchbar.propTypes = {
+  query: PropTypes.string,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
 };

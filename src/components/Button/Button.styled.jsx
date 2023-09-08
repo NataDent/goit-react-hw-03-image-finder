@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const btnBox = styled.div`
+export const BtnBox = styled.div`
   display: flex;
   justify-content: center;
 `;

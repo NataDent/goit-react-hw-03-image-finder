@@ -3,15 +3,13 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getImages } from '../api';
 import { Container } from './App.styled';
-import { SearchBar } from 'components/Searchbar/Searchbar';
-import {ImageGallery} from '../ImageGallery/ImageGallery';
-import {Loader} from'../Loader/Loader';
-import {Modal} from '../Modal/Modal';
-import {Button} from'../Button/Button';
+import { Searchbar } from '../Searchbar/Searchbar';
+import { ImageGallery } from '../ImageGallery/ImageGallery';
+import { Loader } from '../Loader/Loader';
+import { Modal } from '../Modal/Modal';
+import { Button } from '../Button/Button';
 
-
-
- export class App extends Component {
+export class App extends Component {
   state = {
     images: [],
     largeImageUrl: '',
@@ -38,10 +36,7 @@ import {Button} from'../Button/Button';
     if (!query) return;
     this.setState({ isLoading: true });
     try {
-      const { hits, total, totalHits } = await getImages(
-        query,
-        page
-      );
+      const { hits, total, totalHits } = await getImages(query, page);
 
       if (hits.length === 0) {
         this.setState({ isEmpty: true });
@@ -58,7 +53,6 @@ import {Button} from'../Button/Button';
     }
   };
 
-
   getLargeImage = e => {
     const { images } = this.state;
     const id = e.target.id;
@@ -67,13 +61,11 @@ import {Button} from'../Button/Button';
     this.toggleModal();
   };
 
-
   toggleModal = () => {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
     }));
   };
-
 
   onSubmit = query => {
     this.setState({
@@ -85,14 +77,12 @@ import {Button} from'../Button/Button';
     });
   };
 
-
   onLoadMore = () => {
     this.setState(prevState => ({
       isVisible: false,
       page: prevState.page + 1,
     }));
   };
- 
 
   render() {
     const {
@@ -107,15 +97,15 @@ import {Button} from'../Button/Button';
 
     return (
       <Container>
-        <SearchBar onSubmit={this.onSubmit} />
-        
+        <Searchbar onSubmit={this.onSubmit} />
+
         {error && !isLoading && toast.error('OOPS! THERE WAS AN ERROR!')}
         {isEmpty && toast.warn('Images not found')}
 
-        <ImageGallery props={images} onClick={this.getBigPhoto}></ImageGallery>
+        <ImageGallery images={images} onClick={this.getBigPhoto}></ImageGallery>
 
         {largeImageURL && showModal && (
-            <Modal onClose={this.toggleModal}>{largeImageURL}</Modal>
+          <Modal onClose={this.toggleModal}>{largeImageURL}</Modal>
         )}
         {isLoading && <Loader />}
         {isVisible && <Button onClick={this.onLoadMore} onLoad={isLoading} />}

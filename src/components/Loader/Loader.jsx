@@ -1,15 +1,15 @@
 import { Hourglass } from 'react-loader-spinner';
-import { loaderBox } from './Loader.styled';
+import { LoaderBox } from './Loader.styled';
 
 export const Loader = () => {
   return (
-    <loaderBox>
+    <LoaderBox>
       <Hourglass
         height="80"
         width="80"
         ariaLabel="hourglass-loading"
         colors={['#306cce', '#72a1ed']}
       />
-    </loaderBox>
+    </LoaderBox>
   );
 };
