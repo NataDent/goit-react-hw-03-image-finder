@@ -32,7 +32,7 @@ export class App extends Component {
     }
   }
 
-  getPhotos = async (query, page) => {
+  getImages = async (query, page) => {
     if (!query) return;
     this.setState({ isLoading: true });
     try {

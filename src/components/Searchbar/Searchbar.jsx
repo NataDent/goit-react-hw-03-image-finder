@@ -29,7 +29,7 @@ export class Searchbar extends Component {
       return;
     }
 
-    this.onSubmit(query);
+    this.props.onSubmit(query);
     this.setState({ query: '' });
   };
 
@@ -45,7 +45,7 @@ export class Searchbar extends Component {
 
             <SearchFormInputStyled
               type="text"
-              autocomplete="off"
+              autoComplete="off"
               autoFocus
               placeholder="Search images and photos"
               value={query}
