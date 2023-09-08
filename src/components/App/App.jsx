@@ -53,6 +53,7 @@ export class App extends Component {
   };
 
   getLargeImage = e => {
+    console.log(e);
     const { images } = this.state;
     const id = e.target.id;
     const result = images.find(el => el.id === +id);
@@ -101,7 +102,10 @@ export class App extends Component {
         {error && !isLoading && toast.error('OOPS! THERE WAS AN ERROR!')}
         {isEmpty && toast.warn('Images not found')}
 
-        <ImageGallery images={images} onClick={this.getBigPhoto}></ImageGallery>
+        <ImageGallery
+          images={images}
+          onClick={this.getLargeImage}
+        ></ImageGallery>
 
         {largeImageURL && showModal && (
           <Modal onClose={this.toggleModal}>{largeImageURL}</Modal>
