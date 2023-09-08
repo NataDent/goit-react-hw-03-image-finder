@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { ImageGalleryStyled } from './ImageGallery.styled';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = ({ props, onClick }) => {
+export const ImageGallery = ({ images, onClick }) => {
   return (
     <>
       <ImageGalleryStyled>
-        {props.map(({ id, webformatURL, tags }) => {
+        {images.map(({ id, webformatURL, tags }) => {
           return (
             <ImageGalleryItem
               key={id}
