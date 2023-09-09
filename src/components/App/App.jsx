@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getImages } from '../api';
 import { Container } from './App.styled';
@@ -95,6 +95,7 @@ export class App extends Component {
 
     return (
       <Container>
+        <ToastContainer autoClose={3000} />
         <Searchbar onSubmit={this.onSubmit} />
 
         {error && !isLoading && toast.error('OOPS! THERE WAS AN ERROR!')}
