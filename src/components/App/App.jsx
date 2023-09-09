@@ -25,40 +25,25 @@ export class App extends Component {
   componentDidUpdate(_, prevState) {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
-      getImages(query, page).then(data => {
-        this.setState(prev => ({ images: [...prev.images, ...data.hits] }));
+      this.setState({ isLoading: true });
+      getImages(query, page).then(({ hits, totalHits }) => {
+        if (hits.length === 0) {
+          this.setState({ isEmpty: true });
+          toast.warn('Sorry. there are no images ... 😅');
+          return;
+        }
+        this.setState(prevState => ({
+          images: [...prevState.images, ...hits],
+          isVisible: page < Math.ceil(totalHits / 12),
+        }));
       });
     }
   }
 
-  getImages = async (query, page) => {
-    if (!query) return;
-    this.setState({ isLoading: true });
-    try {
-      const { hits, totalHits } = await getImages(query, page);
+  getLargeImage = largeImageURL => {
+    console.log(largeImageURL);
 
-      if (hits.length === 0) {
-        this.setState({ isEmpty: true });
-        toast.warn('Sorry. there are no images ... 😅');
-        return;
-      }
-      this.setState(prevState => ({
-        images: [...prevState.images, ...hits],
-        isVisible: page < Math.ceil(totalHits / 12),
-      }));
-    } catch (error) {
-      this.setState({ error: error.message });
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-
-  getLargeImage = e => {
-    console.log(e);
-    const { images } = this.state;
-    const id = e.target.id;
-    const result = images.find(el => el.id === +id);
-    this.setState({ largeImageURL: result.largeImageURL });
+    this.setState({ largeImageURL });
     this.toggleModal();
   };
 

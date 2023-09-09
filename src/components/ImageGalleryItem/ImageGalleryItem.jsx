@@ -8,7 +8,12 @@ import {
 export const ImageGalleryItem = ({ id, image, alt, onClick }) => {
   return (
     <ImageGalleryItemStyled>
-      <GalleryItemImageStyled id={id} src={image} alt={alt} onClick={onClick} />
+      <GalleryItemImageStyled
+        id={id}
+        src={image}
+        alt={alt}
+        onClick={() => ({ image })}
+      />
     </ImageGalleryItemStyled>
   );
 };
