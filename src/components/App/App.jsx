@@ -43,12 +43,6 @@ export class App extends Component {
         })
         .finally(() => {
           this.setState({ isLoading: false });
-        })
-        .catch(error => {
-          this.setState({ error: error.message });
-        })
-        .finally(() => {
-          this.setState({ isLoading: false });
         });
     }
   }

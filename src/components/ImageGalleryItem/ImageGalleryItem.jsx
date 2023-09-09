@@ -5,14 +5,20 @@ import {
   GalleryItemImageStyled,
 } from './ImageGalleryItem.styled';
 
-export const ImageGalleryItem = ({ id, image, alt, onClick }) => {
+export const ImageGalleryItem = ({
+  id,
+  image,
+  alt,
+  onClick,
+  largeImageURL,
+}) => {
   return (
     <ImageGalleryItemStyled>
       <GalleryItemImageStyled
         id={id}
         src={image}
         alt={alt}
-        onClick={() => onClick(image)}
+        onClick={() => onClick(largeImageURL)}
       />
     </ImageGalleryItemStyled>
   );

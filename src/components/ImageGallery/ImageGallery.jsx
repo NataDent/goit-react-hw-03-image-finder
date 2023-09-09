@@ -7,10 +7,11 @@ export const ImageGallery = ({ images, onClick }) => {
   return (
     <>
       <ImageGalleryStyled>
-        {images.map(({ id, webformatURL, tags }) => {
+        {images.map(({ id, webformatURL, tags, largeImageURL }) => {
           return (
             <ImageGalleryItem
               key={id}
+              largeImageURL={largeImageURL}
               image={webformatURL}
               alt={tags}
               onClick={onClick}
