@@ -12,7 +12,7 @@ export const GalleryItemImageStyled = styled.img`
   object-fit: cover;
   transition: transform 250ms linear;
 
-  :hover {
+  &:hover {
     transform: scale(1.03);
     cursor: zoom-in;
   }

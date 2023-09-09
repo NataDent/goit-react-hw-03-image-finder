@@ -22,24 +22,12 @@ export class App extends Component {
     isVisible: false,
   };
 
-  async componentDidUpdate(_, prevState) {
-    if (
-      this.state.page !== prevState.page ||
-      this.state.query !== prevState.query
-    ) {
-      try {
-        const query = this.state.query;
-        const page = this.state.page;
-        this.setState({ isLoading: true });
-        const resp = await getImages(query, page);
-        this.setState(prevState => ({
-          images: [...prevState.images, resp.hits],
-        }));
-      } catch {
-        this.setState({ error: true });
-      } finally {
-        this.setState({ isLoading: false });
-      }
+  componentDidUpdate(_, prevState) {
+    const { query, page } = this.state;
+    if (prevState.query !== query || prevState.page !== page) {
+      getImages(query, page).then(data => {
+        this.setState(prev => ({ images: [...prev.images, ...data.hits] }));
+      });
     }
   }
 

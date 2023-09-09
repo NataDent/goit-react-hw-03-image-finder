@@ -42,7 +42,7 @@ export const SearchFormButtonStyled = styled.button`
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
-  :hover {
+  &:hover {
     opacity: 1;
   }
 `;
