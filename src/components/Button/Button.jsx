@@ -5,7 +5,9 @@ import { ButtonStyled, BtnBox } from './Button.styled';
 export const Button = ({ onLoadMore }) => {
   return (
     <BtnBox>
-      <ButtonStyled onClick={onLoadMore}>Load more</ButtonStyled>
+      <ButtonStyled onClick={onLoadMore}>
+        <span>Load more</span>
+      </ButtonStyled>
     </BtnBox>
   );
 };
