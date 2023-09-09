@@ -40,6 +40,7 @@ export class App extends Component {
       if (hits.length === 0) {
         this.setState({ isEmpty: true });
         toast.warn('Sorry. there are no images ... 😅');
+        return;
       }
       this.setState(prevState => ({
         images: [...prevState.images, ...hits],
@@ -79,7 +80,6 @@ export class App extends Component {
 
   onLoadMore = () => {
     this.setState(prevState => ({
-      isVisible: false,
       page: prevState.page + 1,
     }));
   };
