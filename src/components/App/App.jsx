@@ -26,17 +26,30 @@ export class App extends Component {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
       this.setState({ isLoading: true });
-      getImages(query, page).then(({ hits, totalHits }) => {
-        if (hits.length === 0) {
-          this.setState({ isEmpty: true });
-          toast.warn('Sorry. there are no images ... 😅');
-          return;
-        }
-        this.setState(prevState => ({
-          images: [...prevState.images, ...hits],
-          isVisible: page < Math.ceil(totalHits / 12),
-        }));
-      });
+      getImages(query, page)
+        .then(({ hits, totalHits }) => {
+          if (hits.length === 0) {
+            this.setState({ isEmpty: true });
+            toast.warn('Sorry. there are no images ... 😅');
+            return;
+          }
+          this.setState(prevState => ({
+            images: [...prevState.images, ...hits],
+            isVisible: page < Math.ceil(totalHits / 12),
+          }));
+        })
+        .catch(error => {
+          this.setState({ error: error.message });
+        })
+        .finally(() => {
+          this.setState({ isLoading: false });
+        })
+        .catch(error => {
+          this.setState({ error: error.message });
+        })
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
     }
   }
 

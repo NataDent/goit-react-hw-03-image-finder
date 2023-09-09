@@ -12,7 +12,7 @@ export const ImageGalleryItem = ({ id, image, alt, onClick }) => {
         id={id}
         src={image}
         alt={alt}
-        onClick={() => ({ image })}
+        onClick={() => onClick(image)}
       />
     </ImageGalleryItemStyled>
   );
